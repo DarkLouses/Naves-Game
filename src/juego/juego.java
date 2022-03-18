@@ -36,7 +36,7 @@ public class juego extends JPanel {
 	int posicion2 = -1;
 	int posicion3 = -2;
 	int posicion4 = -3;
-	int posicion5 = -4;
+
 
 	// timer de disparo de ambos //
 	int timer = 0;
@@ -102,7 +102,7 @@ public class juego extends JPanel {
 					posicion2++;
 					posicion3++;
 					posicion4++;
-					posicion5++;
+		
 
 					// para el rayo se dispare en la posicion que esta el jugador //
 					jugador.municion.get(posicion1).setX_defecto(jugador.x_defecto + 46);
@@ -118,7 +118,7 @@ public class juego extends JPanel {
 						posicion2 = -1;
 						posicion3 = -2;
 						posicion4 = -3;
-						posicion5 = -4;
+			
 
 						
 						for (int i = 0; i < 4; i++) {
@@ -258,22 +258,22 @@ public class juego extends JPanel {
 		// para que no haya errores de textura en los disparos estas condiciciones //
 		if (jugador.disparar) {
 
-			if (posicion1 == 1 || posicion2 == 1 || posicion3 == 1 || posicion4 == 1 || posicion5 == 1) {
+			if (posicion1 == 1 || posicion2 == 1 || posicion3 == 1 || posicion4 == 1) {
 
 				jugador.municion.get(1).mover();
 			}
 
-			if (posicion1 == 2 || posicion2 == 2 || posicion3 == 2 || posicion4 == 2 || posicion5 == 2) {
+			if (posicion1 == 2 || posicion2 == 2 || posicion3 == 2 || posicion4 == 2) {
 
 				jugador.municion.get(2).mover();
 			}
 
-			if (posicion1 == 3 || posicion2 == 3 || posicion3 == 3 || posicion4 == 3 || posicion5 == 3) {
+			if (posicion1 == 3 || posicion2 == 3 || posicion3 == 3 || posicion4 == 3) {
 
 				jugador.municion.get(3).mover();
 			}
 
-			if (posicion1 == 4 || posicion2 == 4 || posicion3 == 4 || posicion4 == 4 || posicion5 == 4) {
+			if (posicion1 == 4 || posicion2 == 4 || posicion3 == 4 || posicion4 == 4) {
 
 				jugador.municion.get(4).mover();
 			}
@@ -334,22 +334,22 @@ public class juego extends JPanel {
 		
 		if (jugador.disparar) {
 
-			if (posicion1 == 1 || posicion2 == 1 || posicion3 == 1 || posicion4 == 1 || posicion5 == 1) {
+			if (posicion1 == 1 || posicion2 == 1 || posicion3 == 1 || posicion4 == 1) {
 
 				jugador.municion.get(1).paint(g);
 			}
 
-			if (posicion1 == 2 || posicion2 == 2 || posicion3 == 2 || posicion4 == 2 || posicion5 == 2) {
+			if (posicion1 == 2 || posicion2 == 2 || posicion3 == 2 || posicion4 == 2) {
 
 				jugador.municion.get(2).paint(g);
 			}
 
-			if (posicion1 == 3 || posicion2 == 3 || posicion3 == 3 || posicion4 == 3 || posicion5 == 3) {
+			if (posicion1 == 3 || posicion2 == 3 || posicion3 == 3 || posicion4 == 3) {
 
 				jugador.municion.get(3).paint(g);
 			}
 
-			if (posicion1 == 4 || posicion2 == 4 || posicion3 == 4 || posicion4 == 4 || posicion5 == 4) {
+			if (posicion1 == 4 || posicion2 == 4 || posicion3 == 4 || posicion4 == 4) {
 
 				jugador.municion.get(4).paint(g);
 			}
@@ -423,7 +423,7 @@ public class juego extends JPanel {
 		posicion2 = -1;
 		posicion3 = -2;
 		posicion4 = -3;
-		posicion5 = -4;
+
 		
 		timer = 0;
 		timer_enemigo = 0;
