@@ -3,7 +3,9 @@ package juego;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Area;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 
@@ -32,19 +34,26 @@ public class enemigo {
 	// posicion por defecto //
 	int x_defecto = 284;
 	int y_defecto = 80;
+	int timer =0;
 
 	// variable de movimiento //
 	int x_movimiento = -4;
-	
+	int[] numeros = new int[2];
+
 	// ************************************************ Constructor ************************************************************ //
 
 	public enemigo(juego navesita) {
-
+	
+		numeros[0] = -8;
+		numeros[1] = 8;
+		
 		this.juego = navesita;
 
 	}
 	
 	// ************************************************ Metodos *************************************************************** //
+
+
 
 	/**
 	 * 
@@ -52,6 +61,8 @@ public class enemigo {
 	 * 
 	 */
 	public void movervida3() {
+		
+	
 
 		if (x_defecto < -20) {
 
@@ -99,6 +110,8 @@ public class enemigo {
 	 */
 	public void movervida1() {
 
+		ramdon();
+		
 		if (x_defecto < -20) {
 
 			x_movimiento = +6;
@@ -122,6 +135,8 @@ public class enemigo {
 	 */
 	public void movervida0() {
 
+		ramdon();
+		
 		if (x_defecto < -20) {
 
 			x_movimiento = +7;
@@ -185,7 +200,6 @@ public class enemigo {
 
 			rayito rayo = new rayito(juego);
 
-			rayo.setX_defecto(x_defecto + 46);
 			rayo.setY_defecto(y_defecto + 40);
 			rayo.setY_movimiento(+4);
 
@@ -196,5 +210,22 @@ public class enemigo {
 		return municionenemiga;
 
 	}
-
+	
+	/**
+	 * 
+	 * agarra aleatoriamente del array su movimiento cada 35 milisegundos 
+	 * 
+	 */
+	public void ramdon() {
+		
+		timer++;
+		
+		if(timer==35) {
+			
+			int numero = (int) Math.floor(Math.random()* numeros.length);
+			x_movimiento = numeros[numero];
+			timer =0;
+		
+	}
+  }
 }

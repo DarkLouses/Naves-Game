@@ -31,13 +31,9 @@ public class juego extends JPanel {
 	rayito rayo = new rayito(this);
 	paredes paredes = new paredes(this);
 
-	// posiciones de disparo del ArrayList del jugador //
-	int posicion1 = 0;
-	int posicion2 = -1;
-	int posicion3 = -2;
-	int posicion4 = -3;
-
-
+	// posicion de disparo del ArrayList del jugador //
+	int posicion = 0;
+	
 	// timer de disparo de ambos //
 	int timer = 0;
 	int timer_enemigo = 0;
@@ -75,6 +71,7 @@ public class juego extends JPanel {
 
 		for (int i = 0; i < 5; i++) {
 
+			
 			enemigo.municionenemiga.get(i).inicializarenemigo();
 			jugador.municion.get(i).inicializaraliada();
 
@@ -94,33 +91,23 @@ public class juego extends JPanel {
 
 					recargando = false;
 					puedesdisparar = false;
-
+		
 					timer = 0;
 					jugador.disparar = true;
 
-					posicion1++;
-					posicion2++;
-					posicion3++;
-					posicion4++;
-		
+					posicion++;
+				
+					jugador.municion.get(posicion).setX_defecto(jugador.x_defecto + 46);
 
 					// para el rayo se dispare en la posicion que esta el jugador //
-					jugador.municion.get(posicion1).setX_defecto(jugador.x_defecto + 46);
-
+				
 					// cuando llega al maximo de tiros //
-					if (posicion1 == 4) {
+					if (posicion == 4) {
 
 						// Resetea la posicion de los rayos lanzado y las variables de uso //
-	
 						timer = 150;
-
-						posicion1 = 0;
-						posicion2 = -1;
-						posicion3 = -2;
-						posicion4 = -3;
-			
-
 						
+						posicion = 0;
 						for (int i = 0; i < 4; i++) {
 							if (jugador.municion.get(i).getY_defecto() < 100) {
 								jugador.municion.get(i).setY_defecto(jugador.y_defecto + -50);
@@ -136,6 +123,10 @@ public class juego extends JPanel {
 				if (s.getKeyCode() == KeyEvent.VK_A) {
 
 					jugador.x_movimiento = -4;
+					
+					if (vidaenemiga == 1 || vidaenemiga == 0) {
+						jugador.x_movimiento = -9;
+					}
 
 				}
 
@@ -143,6 +134,10 @@ public class juego extends JPanel {
 				 if (s.getKeyCode() == KeyEvent.VK_D) {
 
 					jugador.x_movimiento = 4;
+					
+					if (vidaenemiga == 1 || vidaenemiga == 0) {
+						jugador.x_movimiento = 9;
+					}
 
 				}
 			}
@@ -189,15 +184,15 @@ public class juego extends JPanel {
 
 		// ****************************** Enemigo *********************************** //
 		
-		timer_enemigo++;
-		enemigo.movervida3();
-		
 		// para que se mueva con la nave //
 		enemigo.municionenemiga.get(0).setX_defecto(enemigo.x_defecto + 46);
 		enemigo.municionenemiga.get(1).setX_defecto(enemigo.x_defecto + 46);
 		enemigo.municionenemiga.get(2).setX_defecto(enemigo.x_defecto + 46);
 		enemigo.municionenemiga.get(3).setX_defecto(enemigo.x_defecto + 46);
 		enemigo.municionenemiga.get(4).setX_defecto(enemigo.x_defecto + 46);
+		
+		timer_enemigo++;
+		enemigo.movervida3();
 		
 		// las variantes de movimiento //
 		if (vidaenemiga == 2) {
@@ -216,23 +211,28 @@ public class juego extends JPanel {
 		}
 		
 		// el movimiento de los rayos y en que momento se moveran
-		enemigo.municionenemiga.get(1).mover();
-
+		
+		if (timer_enemigo > 10) {
+			enemigo.municionenemiga.get(0).mover();
+		}
+	
 		if (timer_enemigo > 150) {
-			enemigo.municionenemiga.get(2).mover();
+			
+			enemigo.municionenemiga.get(1).mover();
 		}
 
 		if (timer_enemigo > 300) {
-			enemigo.municionenemiga.get(3).mover();
+			enemigo.municionenemiga.get(2).mover();
 		}
 
 		if (timer_enemigo > 450) {
-			enemigo.municionenemiga.get(4).mover();
+			enemigo.municionenemiga.get(3).mover();
 		}
 
 		// cuando llega el timer a 700 resetea las posiciones
-		if (timer_enemigo > 700) {
-
+		if (timer_enemigo > 680) {
+			enemigo.municionenemiga.get(4).mover();
+			
 			for (int i = 0; i < 4; i++) {
 				if (enemigo.municionenemiga.get(i).getY_defecto() > 500) {
 					enemigo.municionenemiga.get(i).setY_defecto(enemigo.y_defecto + 50);
@@ -258,22 +258,22 @@ public class juego extends JPanel {
 		// para que no haya errores de textura en los disparos estas condiciciones //
 		if (jugador.disparar) {
 
-			if (posicion1 == 1 || posicion2 == 1 || posicion3 == 1 || posicion4 == 1) {
+			if (posicion == 1) {
 
 				jugador.municion.get(1).mover();
 			}
 
-			if (posicion1 == 2 || posicion2 == 2 || posicion3 == 2 || posicion4 == 2) {
+			if (posicion == 2) {
 
 				jugador.municion.get(2).mover();
 			}
 
-			if (posicion1 == 3 || posicion2 == 3 || posicion3 == 3 || posicion4 == 3) {
+			if (posicion == 3) {
 
 				jugador.municion.get(3).mover();
 			}
 
-			if (posicion1 == 4 || posicion2 == 4 || posicion3 == 4 || posicion4 == 4) {
+			if (posicion == 4) {
 
 				jugador.municion.get(4).mover();
 			}
@@ -308,24 +308,30 @@ public class juego extends JPanel {
 		fondo.paint(g);
 		jugador.paint(g);
 		enemigo.paint(g);
+	
 
 		// ****************************** Enemigo *********************************** //
-		
-		enemigo.municionenemiga.get(1).paint(g);
+		if (timer_enemigo > 10) {
+			enemigo.municionenemiga.get(0).paint(g);
+		}
 
 		if (timer_enemigo > 150) {
-			enemigo.municionenemiga.get(2).paint(g);
+			enemigo.municionenemiga.get(1).paint(g);
 
 		}
 
 		if (timer_enemigo > 300) {
-
-			enemigo.municionenemiga.get(3).paint(g);
+			enemigo.municionenemiga.get(2).paint(g);
+		
 
 		}
 
 		if (timer_enemigo > 450) {
-
+			enemigo.municionenemiga.get(3).paint(g);
+			
+		}
+		
+		if (timer_enemigo > 700) {
 			enemigo.municionenemiga.get(4).paint(g);
 
 		}
@@ -334,22 +340,22 @@ public class juego extends JPanel {
 		
 		if (jugador.disparar) {
 
-			if (posicion1 == 1 || posicion2 == 1 || posicion3 == 1 || posicion4 == 1) {
+			if (posicion == 1) {
 
 				jugador.municion.get(1).paint(g);
 			}
 
-			if (posicion1 == 2 || posicion2 == 2 || posicion3 == 2 || posicion4 == 2) {
+			if (posicion == 2) {
 
 				jugador.municion.get(2).paint(g);
 			}
 
-			if (posicion1 == 3 || posicion2 == 3 || posicion3 == 3 || posicion4 == 3) {
+			if (posicion == 3) {
 
 				jugador.municion.get(3).paint(g);
 			}
 
-			if (posicion1 == 4 || posicion2 == 4 || posicion3 == 4 || posicion4 == 4) {
+			if (posicion == 4) {
 
 				jugador.municion.get(4).paint(g);
 			}
@@ -419,11 +425,7 @@ public class juego extends JPanel {
 		perdervidaenemigo = false;
 		perdervidajugador = false;
 
-		posicion1 = 0;
-		posicion2 = -1;
-		posicion3 = -2;
-		posicion4 = -3;
-
+		posicion = 0;
 		
 		timer = 0;
 		timer_enemigo = 0;

@@ -63,6 +63,11 @@ import javax.swing.ImageIcon;
 		if (colisionderecha()) {
 
 			x_defecto = x_defecto - 5;
+			
+			if (jueguito.vidaenemiga == 1 || jueguito.vidaenemiga == 0) {
+				
+				x_defecto = x_defecto - 9;
+			}
 		}
 
 		if (colisionizquierda()) {
